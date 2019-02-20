@@ -31,11 +31,22 @@ class MainPageState extends State<MainPage> {
 }
 
 List<Widget> _buildGridTiles(numberOfTiles) {
-  List<Container> containers = new List<Container>.generate(numberOfTiles, (int index) {
+  List<Stack> containers = new List<Stack>.generate(numberOfTiles, (int index) {
     final imageName = 'images/${index + 1}.jpg';
-    print(imageName);
-    return new Container(
-      child: new Image.asset(imageName, fit: BoxFit.cover),
+    return new Stack(
+      alignment: Alignment(0.0, 0.0),
+      children: <Widget>[
+        new Container(
+          child: new Image.asset(imageName, fit: BoxFit.cover, width: 150.0, height: 150.0,),
+        ),
+        new Container(
+          padding: new EdgeInsets.all(5.0),
+          decoration: new BoxDecoration(
+            color: Colors.blue
+          ),
+          child: new Text('$index', style: new TextStyle(fontWeight: FontWeight.w600, color: Colors.white))
+        )
+      ],
     );
   });
   return containers;
