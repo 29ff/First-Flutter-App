@@ -4,44 +4,28 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  _showSnackbar() {
+    final snackbar = new SnackBar(
+      content: new Text('This is a fucking snackbar'),
+      backgroundColor: Colors.green,
+      duration: new Duration(seconds: 1),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackbar);
+  }
+
   @override
   Widget build(BuildContext context) {
-    var card = new Card(
-      child: new Column(
-        children: <Widget>[
-          new ListTile(
-            leading: new Icon(Icons.account_box, color: Colors.blue),
-            title: new Text('Nguyen Ba Hung', style: new TextStyle(fontWeight: FontWeight.w500)),
-            subtitle: new Text('Software Developer'),
-          ),
-          new Divider(color: Colors.blue, indent: 16.0,),
-          new ListTile(
-            leading: new Icon(Icons.mail, color: Colors.blue),
-            title: new Text('nbhung1809@gmail.com'),
-          ),
-          new ListTile(
-            leading: new Icon(Icons.phone, color: Colors.blue),
-            title: new Text('0866118964'),
-          )
-        ],
-      ),
-    );
-
-    final sizeBox = new Container(
-      margin: EdgeInsets.only(left: 10.0, right: 10.0),
-      child: new SizedBox(
-        height: 220.0,
-        child: card,
-      ),
-    );
-
     return MaterialApp(
       title: 'Flutter Demo',
       home: new Scaffold(
+        key: _scaffoldKey,
         appBar: new AppBar(
-          title: new Text('The fucking card'),
+          title: new Text('Snackbar Example'),
+          actions: <Widget>[
+            new IconButton(icon: new Icon(Icons.info), onPressed: _showSnackbar)
+          ],
         ),
-        body: sizeBox,
       )
     );
   }
