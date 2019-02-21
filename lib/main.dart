@@ -1,32 +1,41 @@
 import 'package:flutter/material.dart';
+import 'home.dart';
+import 'chat.dart';
+import 'group.dart';
+import 'cloud.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  _showSnackbar() {
-    final snackbar = new SnackBar(
-      content: new Text('This is a fucking snackbar'),
-      backgroundColor: Colors.green,
-      duration: new Duration(seconds: 1),
-    );
-    _scaffoldKey.currentState.showSnackBar(snackbar);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: new Scaffold(
-        key: _scaffoldKey,
+    final tabsController = new DefaultTabController(
+      length: 4,
+      child: new Scaffold(
         appBar: new AppBar(
-          title: new Text('Snackbar Example'),
-          actions: <Widget>[
-            new IconButton(icon: new Icon(Icons.info), onPressed: _showSnackbar)
+          title: new Text('These are tabs'),
+          bottom: new TabBar(
+            tabs: <Widget>[
+              new Tab(icon: new Icon(Icons.home), text: 'Home' ),
+              new Tab(icon: new Icon(Icons.group), text: 'Group' ),
+              new Tab(icon: new Icon(Icons.chat_bubble), text: 'Message' ),
+              new Tab(icon: new Icon(Icons.cloud), text: 'Cloud' )
+            ],
+          ),
+        ),
+        body: new TabBarView(
+          children: <Widget>[
+            new Home(),
+            new Group(),
+            new Chat(),
+            new Cloud()
           ],
         ),
-      )
+      ),
+    );
+    return MaterialApp(
+      title: 'Flutter Demo',
+      home: tabsController
     );
   }
 }
