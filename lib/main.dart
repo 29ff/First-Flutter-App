@@ -2,64 +2,47 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MainPage extends StatefulWidget {
-  final String title;
-  MainPage({this.title }): super();
-
-  @override
-  State<StatefulWidget> createState() {
-    return new MainPageState(); // Return a state object
-  }
-}
-
-class MainPageState extends State<MainPage> {
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.title),
-      ),
-      body: new GridView.extent(
-        maxCrossAxisExtent: 150.0,
-        children: _buildGridTiles(11),
-        mainAxisSpacing: 5.0,
-        crossAxisSpacing: 5.0,
-        padding: new EdgeInsets.all(5.0),
-      )
-    );
-  }
-}
-
-List<Widget> _buildGridTiles(numberOfTiles) {
-  List<Stack> containers = new List<Stack>.generate(numberOfTiles, (int index) {
-    final imageName = 'images/${index + 1}.jpg';
-    return new Stack(
-      alignment: Alignment(0.0, 0.0),
-      children: <Widget>[
-        new Container(
-          child: new Image.asset(imageName, fit: BoxFit.cover, width: 150.0, height: 150.0,),
-        ),
-        new Container(
-          padding: new EdgeInsets.all(5.0),
-          decoration: new BoxDecoration(
-            color: Colors.blue
-          ),
-          child: new Text('$index', style: new TextStyle(fontWeight: FontWeight.w600, color: Colors.white))
-        )
-      ],
-    );
-  });
-  return containers;
-}
-
-
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var card = new Card(
+      child: new Column(
+        children: <Widget>[
+          new ListTile(
+            leading: new Icon(Icons.account_box, color: Colors.blue),
+            title: new Text('Nguyen Ba Hung', style: new TextStyle(fontWeight: FontWeight.w500)),
+            subtitle: new Text('Software Developer'),
+          ),
+          new Divider(color: Colors.blue, indent: 16.0,),
+          new ListTile(
+            leading: new Icon(Icons.mail, color: Colors.blue),
+            title: new Text('nbhung1809@gmail.com'),
+          ),
+          new ListTile(
+            leading: new Icon(Icons.phone, color: Colors.blue),
+            title: new Text('0866118964'),
+          )
+        ],
+      ),
+    );
+
+    final sizeBox = new Container(
+      margin: EdgeInsets.only(left: 10.0, right: 10.0),
+      child: new SizedBox(
+        height: 220.0,
+        child: card,
+      ),
+    );
+
     return MaterialApp(
       title: 'Flutter Demo',
-      home: new MainPage(title: 'Girdview of images',)
+      home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text('The fucking card'),
+        ),
+        body: sizeBox,
+      )
     );
   }
 }
